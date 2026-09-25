@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVV Digital & Compras Seguras | Protege tu Dinero</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library for victory dynamics -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandYellow: '#FFE600',
+                        brandYellowHover: '#E6D000',
+                        brandDark: '#0D0D0D',
+                        brandCard: '#1A1A1A',
+                        brandGray: '#2A2A2A'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom animations for interactive feedback and dynamic CVV generator */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 230, 0, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 230, 0, 0.7); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+        .glow-yellow {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+        .shake-effect {
+            animation: shake 0.5s ease-in-out;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0D0D0D;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #FFE600;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-white font-sans antialiased custom-scrollbar selection:bg-brandYellow selection:text-brandDark">
+
+    <header class="sticky top-0 z-50 bg-brandDark/90 backdrop-blur-md border-b border-brandGray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-brandYellow rounded-xl flex items-center justify-center text-brandDark text-xl font-black shadow-lg">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <span class="text-xl font-black tracking-tight text-white">CVV<span class="text-brandYellow">SAFE</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-sm font-semibold">
+                <a href="#cvv-que-es" class="hover:text-brandYellow transition-colors">¿Qué es el CVV Digital?</a>
+                <a href="#pasos" class="hover:text-brandYellow transition-colors">Paso a Paso</a>
+                <a href="#juego-detective" class="text-brandYellow hover:underline transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-gamepad"></i> Reto: ¿Real o Falso?
+                </a>
+            </nav>
+            <a href="#juego-detective" class="bg-brandYellow text-brandDark px-5 py-2.5 rounded-xl font-bold hover:bg-brandYellowHover transition-all transform hover:scale-105 shadow-md flex items-center gap-2">
+                <i class="fa-solid fa-play text-xs"></i> Probar Simulador
+            </a>
+        </div>
+    </header>
+
+    <section class="relative pt-12 pb-20 overflow-hidden bg-gradient-to-b from-brandDark via-brandCard to-brandDark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column: Copy Hook -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brandYellow/10 border border-brandYellow/30 text-brandYellow text-xs sm:text-sm font-bold uppercase tracking-wider">
+                        <i class="fa-solid fa-lock"></i> Seguridad Financiera 100% Verificada
+                    </div>
+                    <h1 class="text-4xl sm:text-6xl font-black text-white leading-none tracking-tight">
+                        ¿COMPRAS EN LÍNEA? <br>
+                        <span class="text-brandYellow underline decoration-brandYellow/40">NUNCA USES</span> TU CVV FÍSICO.
+                    </h1>
+                    <p class="text-gray-300 text-lg sm:text-xl font-normal max-w-2xl leading-relaxed">
+                        El <strong class="text-white font-semibold">70% de los fraudes digitales</strong> ocurren por compartir el código impreso al reverso de tu tarjeta. La solución oficial recomendada por bancos y entidades de seguridad: <span class="text-brandYellow font-bold">CVV Dinámico</span>.
+                    </p>
+                    
+                    <!-- Quick Stats Badges -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
+                        <div class="bg-brandDark/80 p-4 rounded-xl border border-brandGray">
+                            <i class="fa-solid fa-clock-rotate-left text-brandYellow text-2xl mb-2"></i>
+                            <p class="text-xs text-gray-400">Duración Estándar</p>
+                            <p class="text-lg font-bold text-white">5 Minutos</p>
+                        </div>
+                        <div class="bg-brandDark/80 p-4 rounded-xl border border-brandGray">
+                            <i class="fa-solid fa-user-shield text-brandYellow text-2xl mb-2"></i>
+                            <p class="text-xs text-gray-400">Uso Único</p>
+                            <p class="text-lg font-bold text-white">100% Anti-Clon</p>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1 bg-brandDark/80 p-4 rounded-xl border border-brandGray">
+                            <i class="fa-solid fa-check-double text-brandYellow text-2xl mb-2"></i>
+                            <p class="text-xs text-gray-400">Respaldo Oficial</p>
+                            <p class="text-lg font-bold text-white">Norma PCI-DSS</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Graphic Visualizing Digital CVV -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-sm bg-brandDark border-2 border-brandYellow/40 rounded-3xl p-6 shadow-2xl glow-yellow">
+                        <div class="flex justify-between items-center mb-6">
+                            <span class="text-xs font-bold uppercase tracking-widest text-gray-400">Tu App Bancaria</span>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-green-500/20 text-green-400 border border-green-500/30">
+                                <span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Activo
+                            </span>
+                        </div>
+
+                        <!-- Card Mockup Visual -->
+                        <div class="bg-gradient-to-tr from-zinc-900 via-zinc-800 to-zinc-900 border border-brandYellow/50 rounded-2xl p-5 shadow-xl text-white space-y-6 relative overflow-hidden">
+                            <div class="flex justify-between items-start">
+                                <i class="fa-solid fa-wifi text-brandYellow text-xl"></i>
+                                <span class="font-mono text-xs font-bold text-brandYellow tracking-wider">TARJETA DIGITAL</span>
+                            </div>
+                            <div class="font-mono text-lg tracking-widest text-gray-300">
+                                •••• •••• •••• 8842
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-[10px] uppercase text-gray-400 font-semibold">Vencimiento</p>
+                                    <p class="font-mono text-sm">12/28</p>
+                                </div>
+                                <div class="bg-brandYellow text-brandDark px-3 py-1.5 rounded-lg font-mono font-black text-right">
+                                    <p class="text-[9px] uppercase tracking-tighter text-brandDark/80 font-bold">CVV DINÁMICO</p>
+                                    <span id="demo-cvv" class="text-xl">842</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timer Visual Bar -->
+                        <div class="mt-6 space-y-2">
+                            <div class="flex justify-between text-xs font-bold">
+                                <span class="text-gray-400"><i class="fa-solid fa-arrows-rotate animate-spin text-brandYellow mr-1"></i> Expira en:</span>
+                                <span id="demo-timer" class="text-brandYellow font-mono text-sm">04:59</span>
+                            </div>
+                            <div class="w-full bg-brandGray h-2 rounded-full overflow-hidden">
+                                <div id="demo-progress" class="bg-brandYellow h-full w-full transition-all duration-1000"></div>
+                            </div>
+                        </div>
+
+                        <p class="text-center text-xs text-gray-400 mt-4 font-medium">
+                            <i class="fa-solid fa-circle-info text-brandYellow mr-1"></i> Si un hacker roba este número, caduca en minutos y no podrá cobrarte nada.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="cvv-que-es" class="py-16 bg-brandDark border-t border-brandGray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight">
+                    ¿POR QUÉ EL <span class="text-brandYellow">CVV DIGITAL</span> ES IMPENETRABLE?
+                </h2>
+                <p class="text-gray-400 text-base sm:text-lg">
+                    A diferencia del reverso de tu plástico, la versión digital te protege contra clonación y sitios web fraudulentos.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Physical CVV Card Danger -->
+                <div class="bg-brandCard border border-red-500/30 rounded-3xl p-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-red-500 text-white font-black text-xs px-4 py-1.5 rounded-bl-xl uppercase tracking-wider">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> RIESGO ALTO
+                    </div>
+                    <div class="w-14 h-14 bg-red-500/10 border border-red-500/30 rounded-2xl flex items-center justify-center text-red-500 text-2xl mb-6">
+                        <i class="fa-solid fa-credit-card"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">CVV Físico Implicaciones</h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-xmark text-red-500 text-xl mt-0.5"></i>
+                            <span><strong>Es estático:</strong> Nunca cambia a lo largo de la vida útil de tu tarjeta.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-xmark text-red-500 text-xl mt-0.5"></i>
+                            <span><strong>Vulnerable a fotos:</strong> Un cajero o mesero puede memorizarlo o fotografiarlo en segundos.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-xmark text-red-500 text-xl mt-0.5"></i>
+                            <span><strong>Almacenamiento riesgoso:</strong> Si compras en un sitio hackeado, tu código queda expuesto permanentemente.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Digital CVV Solution -->
+                <div class="bg-brandCard border-2 border-brandYellow rounded-3xl p-8 relative overflow-hidden shadow-xl">
+                    <div class="absolute top-0 right-0 bg-brandYellow text-brandDark font-black text-xs px-4 py-1.5 rounded-bl-xl uppercase tracking-wider">
+                        <i class="fa-solid fa-shield-check mr-1"></i> MÁXIMA SEGURIDAD
+                    </div>
+                    <div class="w-14 h-14 bg-brandYellow/20 border border-brandYellow rounded-2xl flex items-center justify-center text-brandYellow text-2xl mb-6">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">CVV Digital / Dinámico</h3>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-brandYellow text-xl mt-0.5"></i>
+                            <span><strong>Código temporal:</strong> Genera números aleatorios que caducan en 2 a 5 minutos.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-brandYellow text-xl mt-0.5"></i>
+                            <span><strong>Un solo uso:</strong> Después de procesar tu pago, el código destruye su validez.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-brandYellow text-xl mt-0.5"></i>
+                            <span><strong>Inútil para estafadores:</strong> Aunque intercepten los datos, no podrán volver a utilizarlos.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="pasos" class="py-16 bg-brandCard border-y border-brandGray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brandYellow text-sm font-bold uppercase tracking-widest">Sencillo & Rápido</span>
+                <h2 class="text-3xl sm:text-4xl font-black mt-2">¿CÓMO USAR EL CVV DIGITAL EN 4 PASOS?</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Step 1 -->
+                <div class="bg-brandDark p-6 rounded-2xl border border-brandGray relative group hover:border-brandYellow transition-all">
+                    <div class="w-12 h-12 bg-brandYellow text-brandDark font-black text-2xl rounded-xl flex items-center justify-center mb-4">
+                        1
+                    </div>
+                    <div class="text-3xl text-brandYellow mb-3">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Abre tu App</h4>
+                    <p class="text-gray-400 text-sm">Entra a la aplicación móvil oficial de tu banco desde tu smartphone.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-brandDark p-6 rounded-2xl border border-brandGray relative group hover:border-brandYellow transition-all">
+                    <div class="w-12 h-12 bg-brandYellow text-brandDark font-black text-2xl rounded-xl flex items-center justify-center mb-4">
+                        2
+                    </div>
+                    <div class="text-3xl text-brandYellow mb-3">
+                        <i class="fa-solid fa-credit-card"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Selecciona Tarjeta</h4>
+                    <p class="text-gray-400 text-sm">Elige la opción "Tarjeta Digital" o "Generar CVV Dinámico".</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-brandDark p-6 rounded-2xl border border-brandGray relative group hover:border-brandYellow transition-all">
+                    <div class="w-12 h-12 bg-brandYellow text-brandDark font-black text-2xl rounded-xl flex items-center justify-center mb-4">
+                        3
+                    </div>
+                    <div class="text-3xl text-brandYellow mb-3">
+                        <i class="fa-solid fa-copy"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Copia el Código</h4>
+                    <p class="text-gray-400 text-sm">Copia los 3 dígitos generados que vencerán en un par de minutos.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-brandDark p-6 rounded-2xl border border-brandGray relative group hover:border-brandYellow transition-all">
+                    <div class="w-12 h-12 bg-brandYellow text-brandDark font-black text-2xl rounded-xl flex items-center justify-center mb-4">
+                        4
+                    </div>
+                    <div class="text-3xl text-brandYellow mb-3">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Paga Seguro</h4>
+                    <p class="text-gray-400 text-sm">Pega el código en el checkout de la tienda web y finaliza tu compra.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="juego-detective" class="py-20 bg-brandDark relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center space-y-4 mb-10">
+                <div class="inline-block bg-brandYellow text-brandDark px-4 py-1 rounded-full font-black text-xs uppercase tracking-widest">
+                    <i class="fa-solid fa-gamepad"></i> Dinámica Interactiva
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-black">
+                    RETO DETECTIVE: <span class="text-brandYellow">¿REAL O FALSO?</span>
+                </h2>
+                <p class="text-gray-300 max-w-2xl mx-auto text-base sm:text-lg">
+                    Analiza las siguientes imágenes de portales de compra. ¿Podrás detectar las trampas de fraude antes de hacer clic?
+                </p>
+            </div>
+
+            <!-- Quiz Main Box -->
+            <div class="bg-brandCard border-2 border-brandGray rounded-3xl p-6 sm:p-8 shadow-2xl relative">
+                
+                <!-- Progress Header -->
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 border-b border-brandGray pb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Escenario</span>
+                        <span id="quiz-progress-text" class="bg-brandYellow/20 text-brandYellow font-mono font-bold px-3 py-1 rounded-lg text-sm border border-brandYellow/30">
+                            1 de 4
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="text-sm">
+                            <span class="text-gray-400">Aciertos:</span>
+                            <span id="score-counter" class="font-bold text-green-400 font-mono text-lg ml-1">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Browser Simulation Mockup -->
+                <div id="quiz-card-container" class="bg-brandDark rounded-2xl overflow-hidden border border-brandGray mb-8 shadow-inner">
+                    <!-- Browser Top Bar -->
+                    <div class="bg-zinc-800 px-4 py-3 flex items-center gap-3 border-b border-zinc-700">
+                        <div class="flex gap-1.5">
+                            <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+                        </div>
+                        <div class="flex-1 bg-zinc-900 rounded-lg px-3 py-1 text-xs font-mono flex items-center gap-2 overflow-hidden border border-zinc-700">
+                            <i id="url-lock-icon" class="fa-solid fa-lock text-green-400"></i>
+                            <span id="url-text" class="text-gray-200 truncate">https://www.tienda-oficial.com/pago</span>
+                        </div>
+                    </div>
+
+                    <!-- Browser Page Content (Visual Mockup) -->
+                    <div id="mockup-content" class="p-6 min-h-[320px] flex flex-col justify-center items-center text-center relative bg-zinc-900/50">
+                        <!-- Dynamic Mockup Content Injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons: Real vs Fake -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button id="btn-fake" onclick="submitAnswer(false)" class="group bg-red-600 hover:bg-red-500 text-white font-black py-4 px-6 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-3 text-lg transform active:scale-95">
+                        <i class="fa-solid fa-triangle-exclamation text-2xl group-hover:scale-110 transition-transform"></i>
+                        <span>ES FALSO / ESTAFA</span>
+                    </button>
+
+                    <button id="btn-real" onclick="submitAnswer(true)" class="group bg-green-600 hover:bg-green-500 text-white font-black py-4 px-6 rounded-2xl shadow-lg transition-all flex items-center justify-center gap-3 text-lg transform active:scale-95">
+                        <i class="fa-solid fa-circle-check text-2xl group-hover:scale-110 transition-transform"></i>
+                        <span>ES VERDADERO / SEGURO</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="feedback-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div id="modal-box" class="bg-brandCard border-2 border-brandYellow rounded-3xl p-6 sm:p-8 max-w-lg w-full text-center shadow-2xl relative transform transition-all scale-95">
+            
+            <!-- Icon Dynamic Container -->
+            <div id="modal-icon-container" class="w-20 h-20 mx-auto rounded-full flex items-center justify-center text-4xl mb-4">
+                <!-- Injected via JS -->
+            </div>
+
+            <h3 id="modal-title" class="text-2xl sm:text-3xl font-black mb-2 text-white"></h3>
+            <p id="modal-description" class="text-gray-300 text-sm sm:text-base mb-6 leading-relaxed"></p>
+
+            <button id="modal-next-btn" onclick="nextQuestion()" class="w-full bg-brandYellow hover:bg-brandYellowHover text-brandDark font-black py-3.5 px-6 rounded-xl text-lg shadow-md transition-all">
+                Siguiente Caso <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <section class="py-16 bg-brandCard border-t border-brandGray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-2xl sm:text-4xl font-black text-white">3 REGLAS DE ORO DE FUENTES OFICIALES</h2>
+                <p class="text-gray-400 text-sm mt-2">Basadas en recomendaciones de entidades financieras internacionales (PCI SSC & CONDUSEF)</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-brandDark p-6 rounded-2xl border border-brandGray text-center space-y-3">
+                    <div class="w-12 h-12 bg-brandYellow/10 text-brandYellow rounded-full flex items-center justify-center mx-auto text-xl">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-white">Verifica el candado HTTPS</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Asegúrate de que la dirección web comience con <code class="text-brandYellow font-mono">https://</code> y muestre el ícono del candado cerrado antes de ingresar datos.
+                    </p>
+                </div>
+
+                <div class="bg-brandDark p-6 rounded-2xl border border-brandGray text-center space-y-3">
+                    <div class="w-12 h-12 bg-brandYellow/10 text-brandYellow rounded-full flex items-center justify-center mx-auto text-xl">
+                        <i class="fa-solid fa-comment-slash"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-white">Bancos nunca piden CVV</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Ningún banco real te pedirá tu CVV físico ni dinámico por llamada telefónica, SMS, WhatsApp o correo.
+                    </p>
+                </div>
+
+                <div class="bg-brandDark p-6 rounded-2xl border border-brandGray text-center space-y-3">
+                    <div class="w-12 h-12 bg-brandYellow/10 text-brandYellow rounded-full flex items-center justify-center mx-auto text-xl">
+                        <i class="fa-solid fa-wifi"></i>
+                    </div>
+                    <h4 class="font-bold text-lg text-white">Evita Wi-Fi Público</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Nunca realices compras o ingreses a tu banca móvil conectado a redes Wi-Fi gratuitas en plazas o cafeterías.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brandDark border-t border-brandGray py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-xs space-y-4">
+            <div class="flex items-center justify-center space-x-2 text-white font-bold text-base">
+                <i class="fa-solid fa-shield-halved text-brandYellow"></i>
+                <span>CVV SAFE EDUCATION</span>
+            </div>
+            <p class="max-w-xl mx-auto">
+                Portal educativo diseñado para concientizar sobre el comercio electrónico seguro y el uso responsable de la banca digital.
+            </p>
+            <p class="text-gray-600">© 2026 - Guía de Compras Seguras y Protección Digital.</p>
+        </div>
+    </footer>
+
+    <script>
+        function startDemoTimer() {
+            let totalSeconds = 299; // 4:59
+            const timerEl = document.getElementById('demo-timer');
+            const progressEl = document.getElementById('demo-progress');
+            const cvvEl = document.getElementById('demo-cvv');
+
+            setInterval(() => {
+                if (totalSeconds <= 0) {
+                    totalSeconds = 300;
+                    // Generate new random 3 digit CVV
+                    cvvEl.textContent = Math.floor(100 + Math.random() * 900);
+                }
+                const mins = Math.floor(totalSeconds / 60);
+                const secs = totalSeconds % 60;
+                timerEl.textContent = `0${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                
+                const percentage = (totalSeconds / 300) * 100;
+                progressEl.style.width = `${percentage}%`;
+
+                totalSeconds--;
+            }, 1000);
+        }
+        startDemoTimer();
+
+        const quizScenarios = [
+            {
+                id: 1,
+                url: "https://arnazon-descuentos-flash.online/checkout",
+                isSecureUrl: false,
+                isReal: false,
+                mockupHtml: `
+                    <div class="w-full max-w-md space-y-4 text-left">
+                        <div class="bg-red-500/10 border border-red-500/40 p-3 rounded-xl flex items-center gap-3">
+                            <i class="fa-solid fa-clock text-red-400 text-xl animate-pulse"></i>
+                            <div>
+                                <p class="text-xs font-bold text-red-400">OFERTA URGENTE: Quedan 02:15 min</p>
+                                <p class="text-xs text-gray-300">¡iPhone 15 Pro por solo $199 MXN!</p>
+                            </div>
+                        </div>
+                        <div class="bg-zinc-800 p-4 rounded-xl space-y-3">
+                            <p class="text-xs text-gray-400">Ingresa tu tarjeta para pagar envío:</p>
+                            <input type="text" placeholder="Número de Tarjeta" class="w-full bg-zinc-900 border border-zinc-700 text-white text-xs p-2.5 rounded-lg" disabled value="4152 •••• •••• 9910">
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="MM/AA" class="w-1/2 bg-zinc-900 border border-zinc-700 text-white text-xs p-2.5 rounded-lg" disabled value="12/26">
+                                <input type="text" placeholder="CVV impreso reverso" class="w-1/2 bg-zinc-900 border border-red-500/80 text-white text-xs p-2.5 rounded-lg" disabled value="⚠️ CVV Físico Requerido">
+                            </div>
+                        </div>
+                    </div>
+                `,
+                explanation: "¡Atención! La URL es sospechosa ('arnazon' con 'n' en lugar de 'm'). Además, usa tácticas de presión de tiempo para que actúes sin pensar y te pide ingresar datos en un sitio sin certificación oficial."
+            },
+            {
+                id: 2,
+                url: "https://www.tienda-oficial.com.mx/checkout/pago",
+                isSecureUrl: true,
+                isReal: true,
+                mockupHtml: `
+                    <div class="w-full max-w-md space-y-4 text-left">
+                        <div class="flex justify-between items-center bg-zinc-800 p-3 rounded-xl border border-zinc-700">
+                            <span class="text-xs text-gray-300 font-semibold">Total a pagar:</span>
+                            <span class="text-base font-bold text-brandYellow font-mono">$1,250.00 MXN</span>
+                        </div>
+                        <div class="bg-zinc-800 p-4 rounded-xl space-y-3">
+                            <div class="flex justify-between text-xs text-gray-400">
+                                <span>Método de Pago</span>
+                                <span class="text-green-400"><i class="fa-solid fa-lock"></i> Pago Cifrado SSL</span>
+                            </div>
+                            <div class="p-3 bg-zinc-900 rounded-lg border border-brandYellow/40 flex items-center justify-between">
+                                <span class="text-xs text-gray-300">CVV Dinámico (App Bancaria)</span>
+                                <span class="text-xs font-mono bg-brandYellow text-brandDark font-black px-2 py-1 rounded">***</span>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                explanation: "¡Excelente! La URL contiene dominio HTTPS legítimo, el cobro es claro sin ofertas falsas y solicita el uso de CVV dinámico desde tu aplicación."
+            },
+            {
+                id: 3,
+                url: "http://soporte-bancario-seguridad-login.net/verificar",
+                isSecureUrl: false,
+                isReal: false,
+                mockupHtml: `
+                    <div class="w-full max-w-md space-y-4 text-center">
+                        <div class="text-yellow-400 text-4xl mb-2">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-white">SU CUENTA HA SIDO BLOQUEADA</h4>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            Detectamos un ingreso sospechoso. Para desbloquear, proporcione los 16 dígitos de su tarjeta y el CVV impreso al reverso inmediatamente.
+                        </p>
+                        <div class="bg-red-500/20 border border-red-500 text-red-300 text-xs p-2 rounded-lg font-mono">
+                            HTTP no seguro (Sin HTTPS)
+                        </div>
+                    </div>
+                `,
+                explanation: "¡Trampa detectada! Los bancos NUNCA envían enlaces ni piden desbloquear cuentas solicitando tu CVV. Además, el enlace usa 'http://' en lugar de 'https://'."
+            },
+            {
+                id: 4,
+                url: "https://www.tienda-deportiva.com/pago-final",
+                isSecureUrl: true,
+                isReal: true,
+                mockupHtml: `
+                    <div class="w-full max-w-md space-y-3 text-left">
+                        <div class="p-3 bg-zinc-800 rounded-xl border border-zinc-700 flex items-center gap-3">
+                            <i class="fa-solid fa-shield-check text-green-400 text-2xl"></i>
+                            <div>
+                                <p class="text-xs font-bold text-white">Pasarela de Pago PCI-DSS Compliant</p>
+                                <p class="text-[11px] text-gray-400">Tus datos viajan encriptados de punto a punto</p>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-zinc-800 rounded-xl space-y-2">
+                            <label class="text-xs text-gray-400">CVV Temporal de tu App:</label>
+                            <input type="password" maxlength="3" value="•••" class="w-full bg-zinc-900 border border-zinc-700 text-center font-mono text-brandYellow text-lg p-2 rounded-lg" disabled>
+                        </div>
+                    </div>
+                `,
+                explanation: "¡Correcto! Es una pasarela de pago auténtica con sellos de certificación PCI-DSS y formulario seguro que acepta código temporal."
+            }
+        ];
+
+        let currentScenarioIndex = 0;
+        let userScore = 0;
+
+        function renderScenario() {
+            const scenario = quizScenarios[currentScenarioIndex];
+            
+            // Progress Update
+            document.getElementById('quiz-progress-text').textContent = `${currentScenarioIndex + 1} de ${quizScenarios.length}`;
+            
+            // URL Bar Update
+            const urlTextEl = document.getElementById('url-text');
+            const urlLockIcon = document.getElementById('url-lock-icon');
+            
+            urlTextEl.textContent = scenario.url;
+            if (scenario.isSecureUrl) {
+                urlLockIcon.className = "fa-solid fa-lock text-green-400";
+            } else {
+                urlLockIcon.className = "fa-solid fa-unlock text-red-500";
+            }
+
+            // Render Content Mockup
+            document.getElementById('mockup-content').innerHTML = scenario.mockupHtml;
+        }
+
+        function submitAnswer(userChoiceIsReal) {
+            const scenario = quizScenarios[currentScenarioIndex];
+            const isCorrect = (userChoiceIsReal === scenario.isReal);
+
+            const modal = document.getElementById('feedback-modal');
+            const modalBox = document.getElementById('modal-box');
+            const iconContainer = document.getElementById('modal-icon-container');
+            const titleEl = document.getElementById('modal-title');
+            const descEl = document.getElementById('modal-description');
+
+            if (isCorrect) {
+                userScore++;
+                document.getElementById('score-counter').textContent = userScore;
+                
+                // Happy / Success State
+                modalBox.className = "bg-brandCard border-2 border-green-500 rounded-3xl p-6 sm:p-8 max-w-lg w-full text-center shadow-2xl relative transform transition-all scale-100";
+                iconContainer.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-4xl mb-4 bg-green-500/20 text-green-400 border border-green-500/40";
+                iconContainer.innerHTML = '<i class="fa-solid fa-face-laugh-beam"></i>';
+                titleEl.textContent = "¡FELICITACIONES! 🎉";
+                titleEl.className = "text-2xl sm:text-3xl font-black mb-2 text-green-400";
+                
+                // Launch Confetti
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 80,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                }
+            } else {
+                // Sad / Warning State
+                modalBox.className = "bg-brandCard border-2 border-red-500 rounded-3xl p-6 sm:p-8 max-w-lg w-full text-center shadow-2xl relative transform transition-all scale-100 shake-effect";
+                iconContainer.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-4xl mb-4 bg-red-500/20 text-red-400 border border-red-500/40";
+                iconContainer.innerHTML = '<i class="fa-solid fa-face-frown"></i>';
+                titleEl.textContent = "¡CUIDADO! CAÍSTE EN LA TRAMPA 😢";
+                titleEl.className = "text-2xl sm:text-3xl font-black mb-2 text-red-500";
+            }
+
+            descEl.textContent = scenario.explanation;
+            modal.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            document.getElementById('feedback-modal').classList.add('hidden');
+            currentScenarioIndex++;
+
+            if (currentScenarioIndex < quizScenarios.length) {
+                renderScenario();
+            } else {
+                // Game Finished Summary Modal
+                const modal = document.getElementById('feedback-modal');
+                const modalBox = document.getElementById('modal-box');
+                const iconContainer = document.getElementById('modal-icon-container');
+                const titleEl = document.getElementById('modal-title');
+                const descEl = document.getElementById('modal-description');
+                const nextBtn = document.getElementById('modal-next-btn');
+
+                modalBox.className = "bg-brandCard border-2 border-brandYellow rounded-3xl p-6 sm:p-8 max-w-lg w-full text-center shadow-2xl relative";
+                iconContainer.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-4xl mb-4 bg-brandYellow/20 text-brandYellow border border-brandYellow/40";
+                iconContainer.innerHTML = '<i class="fa-solid fa-trophy"></i>';
+                titleEl.textContent = "¡RETO FINALIZADO!";
+                titleEl.className = "text-2xl sm:text-3xl font-black mb-2 text-brandYellow";
+                
+                descEl.innerHTML = `Obtuviste <strong class="text-white text-xl">${userScore} de ${quizScenarios.length}</strong> respuestas correctas.<br><br>¡Recuerda siempre generar tu <strong>CVV Digital</strong> antes de cualquier compra en línea!`;
+                
+                nextBtn.textContent = "Volver a Intentar";
+                nextBtn.onclick = function() {
+                    currentScenarioIndex = 0;
+                    userScore = 0;
+                    document.getElementById('score-counter').textContent = "0";
+                    modal.classList.add('hidden');
+                    nextBtn.onclick = nextQuestion;
+                    nextBtn.innerHTML = 'Siguiente Caso <i class="fa-solid fa-arrow-right ml-2"></i>';
+                    renderScenario();
+                };
+
+                modal.classList.remove('hidden');
+            }
+        }
+
+        // Initialize First Scenario on Load
+        window.onload = function() {
+            renderScenario();
+        }
+    </script>
+</body>
+</html>
